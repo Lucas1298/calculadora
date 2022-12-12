@@ -27,18 +27,8 @@ function createData(code, año, mes, precio) {
   return { code, año, mes, precio };
 }
 
-const rows = [
-  createData(1, 2022, "DICIEMBRE" ,"$1324,171,354"),
-  createData(2, 2023, "ENERO" ,"$1403,500,365"),
-  createData(3, 2023, "FEBRERO" ,"$60,483,973"),
-  createData(4, 2023, "MARZO" ,"$327,167,434"),
-  createData(5, 2023, "ABRIL" ,"$37,602,103"),
-  createData(6, 2023, "MAYO" ,"$25,475,400"),
-  createData(7, 2023, "JUNIO" ,"$83,019,200"),
-  createData(8, 2023, "JULIO" ,"$4,857,000"),
-  createData(9, 2023, "AGOSTO" ,"$126,577,691"),
+const rows = [];
 
-];
 
 const useStyles = makeStyles({
   root: {
@@ -54,34 +44,80 @@ export default function App() {
   const classes = useStyles();
 
   const [values, setValues] = useState({
-    tasa: 0,
-    diasAdelantado: 0,
-    impuestoBruto: 0,
-    impuestoPrisma: 0,
-    porcentaje: 0.8,
-    cf: 0,
-    promo: 0,
+    cuotas: 0,
+    fPres: Date.now(),
+    fPago: Date.now(),
+    arancel: 0.8,
+    tna: 0.8,
+    importe: 0,
   });
 
-  const [neto, setNeto] = useState(0);
+  const [montoArancel, setMontoArancel] = useState(0);
 
-  const [total, setTotal] = useState(0);
+  const [valorCuota, setValorCuota] = useState(0);
 
-  const [impuestoPrisma, setmpuestoPrisma] = useState(0);
+  const [arancelCuota, setArancelCuota] = useState(0);
 
+  const [totalVan, setTotalVan] = useState(0);
+
+  const [cF, setCF] = useState(0);
+
+
+  function getMontoArancel() {
+    return values.importe*values.arancel/100
+  }
+
+  function getValorCuota() {
+    return values.importe/values.cuotas
+  }
+
+  function getArancelCuota() {
+    return (values.importe/values.cuotas)*values.arancel/100
+  }
+
+  function getTotalVan() {
+    return createListData(values.cuotas).reduce((a, b) => a + b, 0)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setmpuestoPrisma(values.impuestoBruto*values.porcentaje/100)
-    setNeto(values.impuestoBruto-(values.impuestoBruto*values.porcentaje/100)-values.cf-values.promo) 
-    setTotal(((((values.tasa/365)*values.diasAdelantado)*(values.impuestoBruto-(values.impuestoBruto*values.porcentaje/100)-values.cf-values.promo))/100))
-
+    setMontoArancel(getMontoArancel())
+    setValorCuota(getValorCuota())
+    setArancelCuota(getArancelCuota())
+    setTotalVan(getTotalVan())
+    setCF(values.importe-getMontoArancel()-getTotalVan())
+    addData()
   };
 
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
   
+  const formatoMexico = (number) => {
+    const exp = /(\d)(?=(\d{3})+(?!\d))/g;
+    const rep = '$1,';
+    let arr = number.toString().split('.');
+    arr[0] = arr[0].replace(exp,rep);
+    return arr[1] ? arr.join('.'): arr[0];
+  }
+
+  function addData() {
+    createListData(values.cuotas).map((currentValue, index) =>{
+      const date = new Date();
+      date.setMonth(date.getMonth()+index+1)
+      rows.push(createData(index+1, date.getFullYear(),date.toLocaleString('default', { month: 'long' }).toUpperCase(), formatoMexico((Math.floor(currentValue * 10000) / 10000).toFixed(4))))
+    })
+  }
+  
+  
+  function createListData(size) {
+    const arr = []
+    for (let index = 1; index <= size; index++) {
+      arr.push((getValorCuota()- getArancelCuota())/((1+values.tna/100*(30-((( new Date(values.fPago).getTime()- new Date(values.fPres).getTime())/(1000*60*60*24))))/360)* Math.pow((1+values.tna/100*30/360), (index-1))) )
+    }
+    return arr
+  }
  
   return (
     <>
@@ -93,14 +129,13 @@ export default function App() {
           {inputs.map((input) => (
             <FormInput
               flag={true}
-              impPrisma={values.impuestoPrisma}
-              types={input.name === "porcentaje" ? "porcentaje": input.name === "impuestoPrisma" ? "impuestoPrisma" : "common"}
+              types={input.name === "arancel" ? "porcentaje": "common"}
               key={input.id}
               {...input}
               onChange={onChange}
             />
           ))}
-          <button>Calcular</button>
+          <button type='submit'>Calcular</button>
         </form>
 
         <form className="formderecha" onSubmit={handleSubmit}>
@@ -108,7 +143,7 @@ export default function App() {
             <FormInput
               flag={false}
               types="result"
-              values={input.name === "Neto" ? neto: input.name === "Total" ? total : impuestoPrisma}
+              values={input.name === "Monto Arancel" ? montoArancel: input.name === "Valor Cuota" ? valorCuota : input.name === "Arancel Cuota" ? arancelCuota :  input.name === "Total Van" ? totalVan: cF}
               readOnly="readonly"
               key={input.id}
               {...input}

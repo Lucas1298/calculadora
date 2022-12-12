@@ -1,7 +1,7 @@
 export const result =[
   {
     id: 1,
-    name: "ImpuestoPrisma",
+    name: "Monto Arancel",
     type: "text",
     errorMessage:
       "OnlyNumber",
@@ -11,7 +11,7 @@ export const result =[
   },
   {
     id: 2,
-    name: "Neto",
+    name: "Valor Cuota",
     type: "text",
     errorMessage:
       "OnlyNumber",
@@ -21,7 +21,7 @@ export const result =[
   },
   {
     id: 3,
-    name: "Total",
+    name: "Arancel Cuota",
     type: "text",
     errorMessage:
       "OnlyNumber",
@@ -31,7 +31,7 @@ export const result =[
   },
   {
     id: 4,
-    name: "Total",
+    name: "Total Van",
     type: "text",
     errorMessage:
       "OnlyNumber",
@@ -41,7 +41,7 @@ export const result =[
   },
   {
     id: 5,
-    name: "Total",
+    name: "CF",
     type: "text",
     errorMessage:
       "OnlyNumber",

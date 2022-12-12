@@ -5,7 +5,7 @@ import "./formInput.css";
 
 const FormInput = (props) => {
   const [focused, setFocused] = useState(false);
-  const { label, errorMessage, onChange, values, flag, id,types,impPrisma, ...inputProps } = props;
+  const { label, errorMessage, onChange, values, flag, id,types, ...inputProps } = props;
 
   const formatoMexico = (number) => {
     const exp = /(\d)(?=(\d{3})+(?!\d))/g;
@@ -24,7 +24,6 @@ const FormInput = (props) => {
       return (
         <div className="formInput">
           <label>{label}</label>
-          {console.log(props)}
           <input className="inputOne"
             {...inputProps}
             onChange={onChange}
@@ -59,8 +58,8 @@ const FormInput = (props) => {
             <label>
               {label}
               <select className="select" onChange={onChange}  {...inputProps}>
-                <option value={0.8}>Tarjeta de Débito (0.80%)</option>
-                <option selected value={1.8}>Tarjeta de Crédito (1.80%)</option>
+                <option selected value={0.8}>Tarjeta de Débito (0.80%)</option>
+                <option value={1.8}>Tarjeta de Crédito (1.80%)</option>
               </select>
             </label>
           </div>

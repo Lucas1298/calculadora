@@ -1,7 +1,7 @@
 export const inputs = [
   {
     id: 3,
-    name: "impuestoBruto",
+    name: "cuotas",
     type: "text",
     errorMessage:
       "Solo numeros",
@@ -11,7 +11,7 @@ export const inputs = [
   },
   {
     id: 1,
-    name: "tasa",
+    name: "fPres",
     type: "date",
     errorMessage:
       "Solo numeros",
@@ -21,7 +21,7 @@ export const inputs = [
   },
   {
     id: 2,
-    name: "diasAdelantado",
+    name: "fPago",
     type: "date",
     errorMessage:
       "Solo numeros",
@@ -32,7 +32,7 @@ export const inputs = [
 
   {
     id: 4,
-    name: "porcentaje",
+    name: "arancel",
     type: "text",
     errorMessage:
       "Solo numeros",
@@ -42,7 +42,7 @@ export const inputs = [
   },
   {
     id: 5,
-    name: "cf",
+    name: "tna",
     type: "text",
     errorMessage:
       "Solo numeros",
@@ -52,7 +52,7 @@ export const inputs = [
   },
   {
     id: 6,
-    name: "promo",
+    name: "importe",
     type: "text",
     errorMessage:
       "Solo numeros",
