@@ -16,52 +16,28 @@ import { result } from "./seccion/Result"
 
 
 const columns = [
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-  {
-    id: 'population',
-    label: 'Population',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'size',
-    label: 'Size\u00a0(km\u00b2)',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'density',
-    label: 'Density',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toFixed(2),
-  },
+  { id: 'code', label: 'Code', minWidth: 30 , align: "center"},
+  { id: 'año', label: 'Año', minWidth: 50 , align: "left"},
+  { id: 'mes',label: 'Mes', minWidth: 50, align: "left",},
+  { id: 'precio', label: 'Precio', minWidth: 170, },
+  
 ];
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
+function createData(code, año, mes, precio) {
+  return { code, año, mes, precio };
 }
 
 const rows = [
-  createData('India', 'IN', 1324171354, 3287263),
-  createData('China', 'CN', 1403500365, 9596961),
-  createData('Italy', 'IT', 60483973, 301340),
-  createData('United States', 'US', 327167434, 9833520),
-  createData('Canada', 'CA', 37602103, 9984670),
-  createData('Australia', 'AU', 25475400, 7692024),
-  createData('Germany', 'DE', 83019200, 357578),
-  createData('Ireland', 'IE', 4857000, 70273),
-  createData('Mexico', 'MX', 126577691, 1972550),
-  createData('Japan', 'JP', 126317000, 377973),
-  createData('France', 'FR', 67022000, 640679),
-  createData('United Kingdom', 'GB', 67545757, 242495),
-  createData('Russia', 'RU', 146793744, 17098246),
-  createData('Nigeria', 'NG', 200962417, 923768),
-  createData('Brazil', 'BR', 210147125, 8515767),
+  createData(1, 2022, "DICIEMBRE" ,"$1324,171,354"),
+  createData(2, 2023, "ENERO" ,"$1403,500,365"),
+  createData(3, 2023, "FEBRERO" ,"$60,483,973"),
+  createData(4, 2023, "MARZO" ,"$327,167,434"),
+  createData(5, 2023, "ABRIL" ,"$37,602,103"),
+  createData(6, 2023, "MAYO" ,"$25,475,400"),
+  createData(7, 2023, "JUNIO" ,"$83,019,200"),
+  createData(8, 2023, "JULIO" ,"$4,857,000"),
+  createData(9, 2023, "AGOSTO" ,"$126,577,691"),
+
 ];
 
 const useStyles = makeStyles({
@@ -72,10 +48,6 @@ const useStyles = makeStyles({
     maxHeight: 440,
   },
 });
-
-
-
-
 
 
 export default function App() {
