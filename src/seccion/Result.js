@@ -5,7 +5,7 @@ export const result =[
     type: "text",
     errorMessage:
       "OnlyNumber",
-    label: "Importe Arancel ($AR)",
+    label: "Monto Arancel ($AR)",
     pattern: "^[0-9]+([.][0-9]+)?$",
     required: true,
   },
@@ -15,7 +15,7 @@ export const result =[
     type: "text",
     errorMessage:
       "OnlyNumber",
-    label: "Importe Base ($AR)",
+    label: "Valor Cuota ($AR)",
     pattern: "^[0-9]+([.][0-9]+)?$",
     required: true,
   },
@@ -25,7 +25,27 @@ export const result =[
     type: "text",
     errorMessage:
       "OnlyNumber",
-    label: "Intereses ($AR)",
+    label: "Arancel Cuota ($AR)",
+    pattern: "^[0-9]+([.][0-9]+)?$",
+    required: true,
+  },
+  {
+    id: 4,
+    name: "Total",
+    type: "text",
+    errorMessage:
+      "OnlyNumber",
+    label: "Total Van ($AR)",
+    pattern: "^[0-9]+([.][0-9]+)?$",
+    required: true,
+  },
+  {
+    id: 5,
+    name: "Total",
+    type: "text",
+    errorMessage:
+      "OnlyNumber",
+    label: "CF ($AR)",
     pattern: "^[0-9]+([.][0-9]+)?$",
     required: true,
   }

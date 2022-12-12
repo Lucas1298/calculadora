@@ -5,27 +5,27 @@ export const inputs = [
     type: "text",
     errorMessage:
       "Solo numeros",
-    label: "Importe Transacción ($AR)",
-    pattern: "^[0-9]+([.][0-9]+)?$",
+    label: "Cuotas ($AR)",
+    pattern: "^[0-9]+$",
     required: true,
   },
   {
     id: 1,
     name: "tasa",
-    type: "text",
+    type: "date",
     errorMessage:
       "Solo numeros",
-    label: "Tasa (TNA - %)",
+    label: "FPres ($AR)",
     pattern: "^[0-9]+([.][0-9]+)?$",
     required: true,
   },
   {
     id: 2,
     name: "diasAdelantado",
-    type: "text",
+    type: "date",
     errorMessage:
       "Solo numeros",
-    label: "Dias de Adelanto",
+    label: "FPago ($AR)",
     pattern: "^[0-9]+([.][0-9]+)?$",
     required: true,
   },
@@ -36,7 +36,7 @@ export const inputs = [
     type: "text",
     errorMessage:
       "Solo numeros",
-    label: "Porcentaje (%) ",
+    label: "Arancel",
     pattern: "^[0-9]+([.][0-9]+)?$",
     required: true,
   },
@@ -46,7 +46,7 @@ export const inputs = [
     type: "text",
     errorMessage:
       "Solo numeros",
-    label: "Costo Financiero ($AR)",
+    label: "TNA ($AR)",
     pattern: "^[0-9]+([.][0-9]+)?$",
     required: true,
   },
@@ -56,7 +56,7 @@ export const inputs = [
     type: "text",
     errorMessage:
       "Solo numeros",
-    label: "Descuento Promoción ($AR)",
+    label: "Importe ($AR)",
     pattern: "^[0-9]+([.][0-9]+)?$",
     required: true,
   }

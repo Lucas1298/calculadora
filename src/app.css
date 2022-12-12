@@ -26,6 +26,17 @@ body {
   width: 70%;
   border-radius: 10px;
 }
+
+.contenedor2{
+  background-color: #ffffff;
+  margin: 0 auto 0 auto;  
+  padding: 3%;
+  width: 70%;
+  border-radius: 10px;
+  position:absolute;
+  display:block;
+}
+
 .logo {
   background-image: url("imagenes/payway.png");
   background-size: 200px;
