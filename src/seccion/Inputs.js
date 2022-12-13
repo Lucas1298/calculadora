@@ -5,7 +5,7 @@ export const inputs = [
     type: "text",
     errorMessage:
       "Solo numeros",
-    label: "Cuotas ($AR)",
+    label: "Cuotas",
     pattern: "^[0-9]+$",
     required: true,
   },
@@ -15,7 +15,7 @@ export const inputs = [
     type: "date",
     errorMessage:
       "Solo numeros",
-    label: "FPres ($AR)",
+    label: "FPres",
     pattern: "^[0-9]+([.][0-9]+)?$",
     required: true,
   },
@@ -25,7 +25,7 @@ export const inputs = [
     type: "date",
     errorMessage:
       "Solo numeros",
-    label: "FPago ($AR)",
+    label: "FPago",
     pattern: "^[0-9]+([.][0-9]+)?$",
     required: true,
   },
@@ -36,7 +36,7 @@ export const inputs = [
     type: "text",
     errorMessage:
       "Solo numeros",
-    label: "Arancel",
+    label: "Arancel (%)",
     pattern: "^[0-9]+([.][0-9]+)?$",
     required: true,
   },
@@ -46,7 +46,7 @@ export const inputs = [
     type: "text",
     errorMessage:
       "Solo numeros",
-    label: "TNA ($AR)",
+    label: "Tasa (TNA - %)",
     pattern: "^[0-9]+([.][0-9]+)?$",
     required: true,
   },

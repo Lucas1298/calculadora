@@ -16,7 +16,7 @@ import { result } from "./seccion/Result"
 
 
 const columns = [
-  { id: 'code', label: 'Code', minWidth: 30 , align: "center"},
+  { id: 'code', label: 'Cuota', minWidth: 30 , align: "center"},
   { id: 'año', label: 'Año', minWidth: 50 , align: "left"},
   { id: 'mes',label: 'Mes', minWidth: 50, align: "left",},
   { id: 'precio', label: 'Precio', minWidth: 170, },
@@ -28,7 +28,6 @@ function createData(code, año, mes, precio) {
 }
 
 const rows = [];
-
 
 const useStyles = makeStyles({
   root: {
@@ -63,6 +62,44 @@ export default function App() {
   const [cF, setCF] = useState(0);
 
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setMontoArancel(getMontoArancel())
+    setValorCuota(getValorCuota())
+    setArancelCuota(getArancelCuota())
+    setTotalVan(getTotalVan())
+    setCF(values.importe-getMontoArancel()-getTotalVan())
+    addData()
+  };
+
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+  
+  const formatoMexico = (number) => {
+    const exp = /(\d)(?=(\d{3})+(?!\d))/g;
+    const rep = '$1,';
+    let arr = number.toString().split('.');
+    arr[0] = arr[0].replace(exp,rep);
+    return arr[1] ? arr.join('.'): arr[0];
+  }
+  
+  function createListData(size) {
+    const arr = []
+    for (let index = 1; index <= size; index++) {
+      arr.push((getValorCuota()- getArancelCuota())/((1+values.tna/100*(30-((( new Date(values.fPago).getTime()- new Date(values.fPres).getTime())/(1000*60*60*24))))/360)* Math.pow((1+values.tna/100*30/360), (index-1))) )
+    }
+    return arr
+  }
+
+  function addData() {
+    createListData(values.cuotas).map((currentValue, index) =>{
+      const date = new Date();
+      date.setMonth(date.getMonth()+index+1)
+      rows.push(createData(index+1, date.getFullYear(),date.toLocaleString('default', { month: 'long' }).toUpperCase(), formatoMexico((Math.floor(currentValue * 10000) / 10000).toFixed(4))))
+    })
+  }
+
   function getMontoArancel() {
     return values.importe*values.arancel/100
   }
@@ -78,53 +115,13 @@ export default function App() {
   function getTotalVan() {
     return createListData(values.cuotas).reduce((a, b) => a + b, 0)
   }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setMontoArancel(getMontoArancel())
-    setValorCuota(getValorCuota())
-    setArancelCuota(getArancelCuota())
-    setTotalVan(getTotalVan())
-    setCF(values.importe-getMontoArancel()-getTotalVan())
-    addData()
-  };
-
-  const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
-  
-  const formatoMexico = (number) => {
-    const exp = /(\d)(?=(\d{3})+(?!\d))/g;
-    const rep = '$1,';
-    let arr = number.toString().split('.');
-    arr[0] = arr[0].replace(exp,rep);
-    return arr[1] ? arr.join('.'): arr[0];
-  }
-
-  function addData() {
-    createListData(values.cuotas).map((currentValue, index) =>{
-      const date = new Date();
-      date.setMonth(date.getMonth()+index+1)
-      rows.push(createData(index+1, date.getFullYear(),date.toLocaleString('default', { month: 'long' }).toUpperCase(), formatoMexico((Math.floor(currentValue * 10000) / 10000).toFixed(4))))
-    })
-  }
-  
-  
-  function createListData(size) {
-    const arr = []
-    for (let index = 1; index <= size; index++) {
-      arr.push((getValorCuota()- getArancelCuota())/((1+values.tna/100*(30-((( new Date(values.fPago).getTime()- new Date(values.fPres).getTime())/(1000*60*60*24))))/360)* Math.pow((1+values.tna/100*30/360), (index-1))) )
-    }
-    return arr
-  }
  
   return (
     <>
     <div className="app">
       <div className="contenedor">
         <div className="logo"></div>
-        <h1 className="titulo">Calculadora de Intereses<br></br>de Pago Expreso</h1>          
+        <h1 className="titulo">Calculadora de Costo Financiero<br></br>en Cuotas Acelerados</h1>          
         <form className="formizquierda" onSubmit={handleSubmit}>
           {inputs.map((input) => (
             <FormInput
