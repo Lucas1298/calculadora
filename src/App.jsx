@@ -73,7 +73,15 @@ export default function App() {
   };
 
   const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    try {    
+      if(e.target === undefined){
+        console.log(e.value)
+        setValues({ ...values, arancel: parseFloat(e.value)})
+      }else{
+        setValues({ ...values, [e.target.name]: e.target.value });
+      }
+    } catch (error) { 
+    }
   };
   
   const formatoMexico = (number) => {
