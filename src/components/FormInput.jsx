@@ -68,7 +68,6 @@ const FormInput = (props) => {
               {label}
               <CreatableSelect  {...inputProps} formatCreateLabel={formatCreateLabel} onChange={onChange} isClearable options={options} />
             </label>
-            <span>{errorMessage}</span>
           </div>
         )
     default:
