@@ -50,7 +50,7 @@ const FormInput = (props) => {
           
           <input className="inputTwo"
             {...inputProps}
-            value={formatoMexico((Math.floor(values * 10000) / 10000).toFixed(4)) }
+            value={formatoMexico((Math.round(values * 100) / 100)) }
             onChange={onChange}
             onBlur={handleFocus}
             focused={focused.toString()}

@@ -101,9 +101,10 @@ export default function App() {
   }
 
   function addData() {
+    rows.length = 0
     createListData(values.cuotas).map((currentValue, index) =>{
-      const date = new Date();
-      date.setMonth(date.getMonth()+index+1)
+      const date = new Date(values.fPago);
+      date.setMonth(date.getMonth()+index)
       rows.push(createData(index+1, date.getFullYear(),date.toLocaleString('default', { month: 'long' }).toUpperCase(), formatoMexico((Math.floor(currentValue * 10000) / 10000).toFixed(4))))
     })
   }
@@ -162,7 +163,7 @@ export default function App() {
     <div className="app">
       <div className="contenedor">
       <Paper className={classes.root}>
-      <TableContainer className={classes.container}>
+      <TableContainer className={classes.container} >
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
